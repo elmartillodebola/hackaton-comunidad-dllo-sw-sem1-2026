@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hackathon — Diseño del Ejercicio Práctico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sura:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f4f6fb;
+      --surface2: #eaeff7;
+      --accent: #0ad1fd;
+      --accent-dark: #1b2195;
+      --accent2: #e6e947;
+      --accent3: #1c35cd;
+      --accent-pink: #ff13bd;
+      --text: #1b2195;
+      --text-dark: #111827;
+      --muted: #5a6a8a;
+      --border: rgba(27,33,149,0.12);
+      --card-bg: #ffffff;
+      --cyan-grad: linear-gradient(135deg, #0ad1fd 0%, #1b4af2 100%);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--bg);
+      color:var(--text-dark);
+      font-family:'DM Mono',monospace;
+      font-size:14px;
+      line-height:1.7;
+      overflow-x:hidden;
+    }
+
+    /* BACKGROUND SUBTLE GRID */
+    .bg-grid{
+      position:fixed;inset:0;z-index:0;
+      background-image:
+        linear-gradient(rgba(27,33,149,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27,33,149,0.03) 1px, transparent 1px);
+      background-size:40px 40px;
+      pointer-events:none;
+    }
+    .bg-glow{
+      position:fixed;top:-200px;right:-200px;width:700px;height:700px;
+      background:radial-gradient(circle, rgba(10,209,253,0.07) 0%, transparent 70%);
+      pointer-events:none;z-index:0;
+    }
+    .bg-glow2{
+      position:fixed;bottom:-200px;left:-200px;width:600px;height:600px;
+      background:radial-gradient(circle, rgba(27,33,149,0.05) 0%, transparent 70%);
+      pointer-events:none;z-index:0;
+    }
+
+    /* LAYOUT */
+    .container{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+    /* HEADER */
+    header{
+      padding:60px 0 52px;
+      border-bottom:2px solid var(--border);
+      position:relative;
+    }
+    .header-logo{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:32px;
+    }
+    .header-logo img{
+      height:72px;width:auto;
+    }
+    .tag{
+      display:inline-block;
+      font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+      color:var(--accent-dark);border:1px solid var(--accent-dark);
+      padding:4px 12px;border-radius:2px;margin-bottom:24px;
+    }
+    h1{
+      font-family:'Sura',serif;
+      font-size:clamp(2.2rem,5vw,3.8rem);
+      font-weight:700;line-height:1.1;
+      margin-bottom:16px;
+      color:var(--text-dark);
+    }
+    h1 span{
+      background:var(--cyan-grad);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .subtitle{
+      font-family:'Sura',serif;
+      font-weight:400;
+      font-size:1.05rem;color:var(--muted);
+      max-width:600px;
+    }
+    .meta-pills{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;}
+    .pill{
+      display:flex;align-items:center;gap:8px;
+      background:var(--surface);border:1px solid var(--border);
+      padding:6px 14px;border-radius:2px;font-size:12px;color:var(--muted);
+    }
+    .pill .dot{
+      width:6px;height:6px;border-radius:50%;
+      background:var(--cyan-grad);
+    }
+
+    /* SECTION TITLES */
+    .section{padding:60px 0;}
+    .section-label{
+      font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+      color:var(--accent3);margin-bottom:8px;
+    }
+    h2{
+      font-family:'Sura',serif;font-size:1.8rem;font-weight:700;
+      margin-bottom:32px;color:var(--text-dark);
+    }
+    h2 em{font-style:normal;background:var(--cyan-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    h3{font-family:'Sura',serif;font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--text-dark);}
+
+    /* DIVIDER */
+    .divider{height:1px;background:var(--border);margin:0;}
+
+    /* PRINCIPLE CARDS */
+    .principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+    .p-card{
+      background:var(--surface);border:1px solid var(--border);
+      padding:24px;border-radius:6px;
+      transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+    }
+    .p-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 20px rgba(10,209,253,0.12);}
+    .p-icon{font-size:1.6rem;margin-bottom:12px;}
+    .p-card p{color:var(--muted);font-size:13px;}
+
+    /* RETOS */
+    .retos{display:flex;flex-direction:column;gap:16px;}
+    .reto{
+      background:var(--card-bg);border:1px solid var(--border);
+      border-radius:6px;overflow:hidden;
+      box-shadow:0 1px 4px rgba(27,33,149,0.06);
+    }
+    .reto-header{
+      padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;
+      transition:background 0.2s;
+    }
+    .reto-header:hover{background:var(--surface);}
+    .reto-num{
+      font-family:'Sura',serif;font-size:2rem;font-weight:700;
+      color:rgba(27,33,149,0.15);min-width:48px;line-height:1;
+    }
+    .reto-title-block{}
+    .reto-badge{
+      font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
+      color:var(--accent3);margin-bottom:2px;
+    }
+    .reto-body{
+      padding:0 24px 24px 24px;
+      border-top:1px solid var(--border);
+    }
+    .reto-desc{color:var(--muted);margin:16px 0;}
+    .tech-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+    .tech-tag{
+      font-size:11px;
+      background:rgba(10,209,253,0.08);
+      border:1px solid rgba(10,209,253,0.3);
+      color:var(--accent3);
+      padding:3px 10px;border-radius:2px;
+    }
+    .levels{margin-top:16px;}
+    .level-row{
+      display:flex;gap:12px;align-items:flex-start;
+      padding:10px 0;border-bottom:1px solid rgba(27,33,149,0.06);
+      font-size:13px;
+    }
+    .level-row:last-child{border-bottom:none;}
+    .level-badge{
+      font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+      padding:3px 8px;border-radius:2px;min-width:72px;text-align:center;flex-shrink:0;
+    }
+    .l-init{background:rgba(28,53,205,0.08);color:var(--accent3);}
+    .l-junior{background:rgba(10,209,253,0.1);color:#0891b2;}
+    .l-senior{background:rgba(230,233,71,0.2);color:#7c7a00;}
+    .l-mentor{background:rgba(255,19,189,0.08);color:#c4009a;}
+    .level-text{color:var(--muted);}
+
+    /* ENTREGABLES */
+    .entregables-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+    .e-card{
+      background:var(--surface);border:1px solid var(--border);
+      padding:20px;border-radius:6px;
+    }
+    .e-num{
+      font-family:'Sura',serif;font-size:2.5rem;font-weight:700;
+      color:rgba(10,209,253,0.3);line-height:1;margin-bottom:8px;
+    }
+    .e-card p{color:var(--muted);font-size:12px;margin-top:4px;}
+
+    /* AGENDA */
+    .agenda{display:flex;flex-direction:column;gap:0;}
+    .agenda-item{
+      display:grid;grid-template-columns:100px 1fr;gap:24px;
+      padding:20px 0;border-bottom:1px solid rgba(27,33,149,0.07);
+      align-items:start;
+    }
+    .agenda-item:last-child{border-bottom:none;}
+    .a-time{
+      font-size:12px;
+      background:var(--cyan-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      font-family:'DM Mono',monospace;padding-top:2px;font-weight:500;
+    }
+    .a-title{font-family:'Sura',serif;font-weight:700;font-size:0.95rem;color:var(--text-dark);}
+    .a-desc{color:var(--muted);font-size:12px;margin-top:4px;}
+    .a-tag{
+      display:inline-block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+      background:var(--surface2);border:1px solid var(--border);
+      padding:2px 8px;border-radius:2px;color:var(--muted);margin-top:6px;
+    }
+
+    /* EQUIPOS */
+    .team-card{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:6px;padding:28px;margin-bottom:16px;
+    }
+    .team-composition{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+    .member-chip{
+      display:flex;align-items:center;gap:8px;
+      background:var(--card-bg);border:1px solid var(--border);
+      padding:8px 14px;border-radius:2px;font-size:12px;
+    }
+    .chip-dot{width:8px;height:8px;border-radius:50%;}
+    .c-dev{background:linear-gradient(135deg,#0ad1fd,#1b4af2);}
+    .c-init{background:#1c35cd;}
+    .c-jr{background:#0ad1fd;}
+    .c-sr{background:#e6e947;}
+    .c-mn{background:#ff13bd;}
+
+    /* CRITERIOS */
+    .criterios-table{width:100%;border-collapse:collapse;}
+    .criterios-table th{
+      text-align:left;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+      color:var(--muted);padding:10px 16px;border-bottom:2px solid var(--border);
+      font-weight:500;
+    }
+    .criterios-table td{
+      padding:12px 16px;border-bottom:1px solid rgba(27,33,149,0.06);
+      font-size:13px;color:var(--muted);
+      vertical-align:top;
+    }
+    .criterios-table td:first-child{color:var(--text-dark);font-weight:500;}
+    .pts{
+      display:inline-block;
+      background:rgba(10,209,253,0.1);border:1px solid rgba(10,209,253,0.3);
+      color:var(--accent3);padding:2px 10px;border-radius:2px;font-size:12px;
+    }
+    .pts-bonus{
+      background:rgba(230,233,71,0.15);border:1px solid rgba(230,233,71,0.4);
+      color:#5c5a00;
+    }
+
+    /* REGLAS */
+    .rules-list{display:flex;flex-direction:column;gap:10px;}
+    .rule{
+      display:flex;gap:14px;align-items:flex-start;
+      background:var(--surface);border:1px solid var(--border);
+      padding:14px 18px;border-radius:6px;
+    }
+    .rule-n{
+      font-family:'Sura',serif;font-weight:700;font-size:1.1rem;
+      background:var(--cyan-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      min-width:28px;
+    }
+    .rule p{color:var(--muted);font-size:13px;}
+
+    /* VOTACION */
+    .vote-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:24px;}
+    .vote-step{
+      background:var(--surface);border:1px solid var(--border);
+      padding:20px;border-radius:6px;text-align:center;
+    }
+    .vote-step .v-num{
+      font-family:'Sura',serif;font-size:2.5rem;font-weight:700;
+      color:rgba(27,33,149,0.15);
+    }
+    .vote-step p{color:var(--muted);font-size:12px;margin-top:6px;}
+
+    /* FOOTER */
+    footer{
+      padding:48px 0;
+      border-top:2px solid var(--border);
+      text-align:center;
+      color:var(--muted);font-size:12px;
+    }
+    footer .footer-logo{
+      display:flex;justify-content:center;align-items:center;gap:12px;
+      margin-bottom:16px;
+    }
+    footer .footer-logo img{height:44px;width:auto;}
+    footer .footer-logo-text{
+      font-family:'Sura',serif;font-size:0.85rem;font-weight:700;color:var(--text-dark);
+      text-align:left;line-height:1.2;
+    }
+    footer .footer-logo-text span{
+      display:block;font-weight:400;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);
+    }
+    footer strong{
+      background:var(--cyan-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+
+    /* ACCENT BAR TOP */
+    .accent-bar{
+      height:4px;
+      background:var(--cyan-grad);
+      position:fixed;top:0;left:0;right:0;z-index:100;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .section{animation:fadeUp 0.5s ease both;}
+  </style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-glow2"></div>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-logo">
+        <img src="assets/BannerComunidadDlloSw.png" alt="Comunidad Desarrollo de Software"/>
+        <img src="assets/NuevoLogoProteccionSura.jpg" alt="Protección S.A."/>
+      </div>
+      <div class="tag">// hackathon · Comunidad Desarrollo de Software · Proteccion S.A.</div>
+      <h1>Build<span>Day</span><br/>Fintech Edition</h1>
+      <p class="subtitle">Una semana. Un reto elegido en vivo el día de arranque. Equipos de 3, un ancla técnica, todos construyen.</p>
+      <div class="meta-pills">
+        <div class="pill"><span class="dot"></span> ~50 participantes</div>
+        <div class="pill"><span class="dot"></span> 8 abril 8:00 am → 15 abril 8:00 am</div>
+        <div class="pill"><span class="dot"></span> Pensiones voluntarias · Servicio al afiliado</div>
+        <div class="pill"><span class="dot"></span> IA como herramienta, no como atajo</div>
+      </div>
+    </header>
+
+    <!-- FILOSOFIA -->
+    <section class="section">
+      <div class="section-label">// 00 · filosofía del Ejercicio Práctico</div>
+      <h2>¿Por qué este <em>formato</em>?</h2>
+      <div class="principles">
+        <div class="p-card">
+          <div class="p-icon">🧱</div>
+          <h3>Un proyecto, todos construyen</h3>
+          <p>Un solo reto votado democráticamente genera identidad colectiva. Todos hablan el mismo idioma ese día.</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">🔗</div>
+          <h3>El dev ancla/Dev CIS, no reemplaza</h3>
+          <p>El desarrollador guía, desbloquea y revisa. El protagonismo lo tienen quienes están aprendiendo.</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">🤖</div>
+          <h3>IA como copiloto</h3>
+          <p>Herramienta válida y visible. Los prompts son parte del entregable: se evalúan, se comparten, se aprende de ellos.</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">📈</div>
+          <h3>Niveles que suman, no que separan</h3>
+          <p>Criterios base para todos + puntos bonus por conceptos avanzados. Nadie queda fuera, todos pueden brillar.</p>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- 5 RETOS -->
+    <section class="section">
+      <div class="section-label">// 01 · los cinco retos candidatos</div>
+      <h2>Elige tu <em>favorito</em> — uno será el proyecto del día</h2>
+      <p style="color:var(--muted);margin-bottom:28px;font-size:13px;">Cada reto incluye variantes de complejidad para que los distintos niveles aporten desde su conocimiento. La votación ocurre la semana previa al Ejercicio Práctico.</p>
+
+      <div class="retos">
+
+        <!-- RETO 1 -->
+        <div class="reto">
+          <div class="reto-header">
+            <div class="reto-num">01</div>
+            <div class="reto-title-block">
+              <div class="reto-badge">Pensiones voluntarias · Inversiones</div>
+              <h3>Mi Portafolio Inteligente</h3>
+            </div>
+          </div>
+          <div class="reto-body">
+            <p class="reto-desc">Mini-aplicación web donde un usuario registrado puede simular y comparar distintos perfiles de inversión (conservador, moderado, agresivo) para su pensión voluntaria. Incluye visualización de proyecciones y alertas por correo o notificación.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Auth JWT / OAuth</span>
+              <span class="tech-tag">POO · Clases de perfil</span>
+              <span class="tech-tag">Almacenamiento nube</span>
+              <span class="tech-tag">Contenedor Docker</span>
+              <span class="tech-tag">Cola de notificaciones</span>
+            </div>
+            <div class="levels">
+              <div class="level-row"><span class="level-badge l-init">Iniciando</span><span class="level-text">Formulario de registro y visualización estática de perfiles de inversión.</span></div>
+              <div class="level-row"><span class="level-badge l-junior">Junior</span><span class="level-text">Lógica de simulación con clases, persistencia en base de datos en nube.</span></div>
+              <div class="level-row"><span class="level-badge l-senior">Senior</span><span class="level-text">Contenedor desplegado, tests unitarios, envío de notificaciones asincrónico.</span></div>
+              <div class="level-row"><span class="level-badge l-mentor">Mentor</span><span class="level-text">Arquitectura limpia, cola de mensajes real (RabbitMQ/SQS), revisión de código del equipo.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 2 -->
+        <div class="reto">
+          <div class="reto-header">
+            <div class="reto-num">02</div>
+            <div class="reto-title-block">
+              <div class="reto-badge">Servicio al afiliado · Experiencia</div>
+              <h3>Centro de Ayuda con IA</h3>
+            </div>
+          </div>
+          <div class="reto-body">
+            <p class="reto-desc">Chatbot de preguntas frecuentes sobre cesantías, pensiones y trámites. Los usuarios autenticados hacen preguntas; el sistema responde usando una base de conocimiento definida por el equipo. Los chats se almacenan y analizan.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Auth con roles</span>
+              <span class="tech-tag">API LLM (Gemini free / Groq)</span>
+              <span class="tech-tag">Storage en nube</span>
+              <span class="tech-tag">Programación reactiva</span>
+              <span class="tech-tag">Deploy Render / Railway</span>
+            </div>
+            <div class="levels">
+              <div class="level-row"><span class="level-badge l-init">Iniciando</span><span class="level-text">UI del chat con respuestas estáticas desde un JSON de preguntas frecuentes.</span></div>
+              <div class="level-row"><span class="level-badge l-junior">Junior</span><span class="level-text">Integración con API de IA, historial de conversación guardado en nube.</span></div>
+              <div class="level-row"><span class="level-badge l-senior">Senior</span><span class="level-text">Streaming reactivo de respuestas, autenticación con roles (afiliado vs admin).</span></div>
+              <div class="level-row"><span class="level-badge l-mentor">Mentor</span><span class="level-text">Contenerización, tests, panel de analítica de preguntas frecuentes más comunes.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 3 -->
+        <div class="reto">
+          <div class="reto-header">
+            <div class="reto-num">03</div>
+            <div class="reto-title-block">
+              <div class="reto-badge">Pensiones voluntarias · Servicio</div>
+              <h3>Calculadora de Retiro</h3>
+            </div>
+          </div>
+          <div class="reto-body">
+            <p class="reto-desc">Herramienta que permite al afiliado ingresar sus datos (edad, salario, aportes, años de trabajo) y calcula proyecciones de pensión en distintos escenarios. Genera un reporte PDF descargable y lo almacena en la nube para consulta futura.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">POO · Clases de cálculo</span>
+              <span class="tech-tag">Auth + sesión</span>
+              <span class="tech-tag">Generación PDF</span>
+              <span class="tech-tag">Object Storage</span>
+              <span class="tech-tag">Tests unitarios</span>
+            </div>
+            <div class="levels">
+              <div class="level-row"><span class="level-badge l-init">Iniciando</span><span class="level-text">Formulario con cálculo básico y resultado en pantalla.</span></div>
+              <div class="level-row"><span class="level-badge l-junior">Junior</span><span class="level-text">Clases de escenario, usuario autenticado, historial de cálculos.</span></div>
+              <div class="level-row"><span class="level-badge l-senior">Senior</span><span class="level-text">Generación de PDF, subida a S3/GCS, URL firmada para descarga.</span></div>
+              <div class="level-row"><span class="level-badge l-mentor">Mentor</span><span class="level-text">Tests de las clases de cálculo, contenedor, CI básico con GitHub Actions.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 4 -->
+        <div class="reto">
+          <div class="reto-header">
+            <div class="reto-num">04</div>
+            <div class="reto-title-block">
+              <div class="reto-badge">Servicio al afiliado · Operaciones</div>
+              <h3>Gestor de Solicitudes</h3>
+            </div>
+          </div>
+          <div class="reto-body">
+            <p class="reto-desc">Sistema de tickets donde el afiliado crea una solicitud (retiro de cesantías, cambio de fondo, consulta de saldo) y el sistema notifica por correo cada cambio de estado. Ideal para trabajar colas, tópicos y eventos.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Tópicos y colas</span>
+              <span class="tech-tag">Notificaciones email</span>
+              <span class="tech-tag">Auth multi-rol</span>
+              <span class="tech-tag">Estado de solicitudes</span>
+              <span class="tech-tag">Contenedor + deploy</span>
+            </div>
+            <div class="levels">
+              <div class="level-row"><span class="level-badge l-init">Iniciando</span><span class="level-text">Formulario de solicitud con listado de estados visible en pantalla.</span></div>
+              <div class="level-row"><span class="level-badge l-junior">Junior</span><span class="level-text">Persistencia en BD, cambio de estado por parte del admin, UI reactiva.</span></div>
+              <div class="level-row"><span class="level-badge l-senior">Senior</span><span class="level-text">Cola de eventos para notificaciones, webhook o email con cada cambio.</span></div>
+              <div class="level-row"><span class="level-badge l-mentor">Mentor</span><span class="level-text">Tópico pub/sub, múltiples consumidores, tests de flujo completo, despliegue.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 5 -->
+        <div class="reto">
+          <div class="reto-header">
+            <div class="reto-num">05</div>
+            <div class="reto-title-block">
+              <div class="reto-badge">Inversiones · Educación financiera</div>
+              <h3>Academia de Inversión Gamificada</h3>
+            </div>
+          </div>
+          <div class="reto-body">
+            <p class="reto-desc">Plataforma de micro-aprendizaje con módulos cortos sobre inversión, riesgo y pensiones voluntarias. El usuario completa lecciones, gana puntos y recibe una insignia digital. Contenido almacenado en nube, progreso persistido por usuario autenticado.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">Auth + perfil</span>
+              <span class="tech-tag">POO · Módulos y logros</span>
+              <span class="tech-tag">Almacenamiento nube</span>
+              <span class="tech-tag">Notificación por logro</span>
+              <span class="tech-tag">Deploy gratuito</span>
+            </div>
+            <div class="levels">
+              <div class="level-row"><span class="level-badge l-init">Iniciando</span><span class="level-text">UI de lecciones con progreso visual, sin backend (localStorage).</span></div>
+              <div class="level-row"><span class="level-badge l-junior">Junior</span><span class="level-text">Backend con clases de módulo y logro, usuario autenticado, progreso en BD.</span></div>
+              <div class="level-row"><span class="level-badge l-senior">Senior</span><span class="level-text">Notificación al completar módulo, imágenes de insignia en Object Storage.</span></div>
+              <div class="level-row"><span class="level-badge l-mentor">Mentor</span><span class="level-text">Arquitectura orientada a eventos, tests, contenedor, revisión y coaching al equipo.</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- VOTACION -->
+    <section class="section">
+      <div class="section-label">// 02 · elección del reto</div>
+      <h2>Votación en <em>vivo</em> — apertura del Ejercicio Práctico</h2>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">La votación ocurre en la sesión de arranque del <strong style="color:var(--text-dark)">martes 8 de abril a las 8:00 am</strong>. Todos conocen los 5 retos de antemano, pero la decisión se toma juntos en tiempo real. Esto genera expectativa, identidad colectiva y que todos lleguen preparados.</p>
+      <div class="vote-steps">
+        <div class="vote-step"><div class="v-num">01</div><h3>Publicación previa</h3><p>Los 5 retos se comparten a la comunidad días antes con descripción y contexto para que lleguen informados.</p></div>
+        <div class="vote-step"><div class="v-num">02</div><h3>Sesión de apertura</h3><p>El 8 de abril a las 8:00 am se repasan las reglas, se presentan los equipos y se explica brevemente cada reto.</p></div>
+        <div class="vote-step"><div class="v-num">03</div><h3>Votación en tiempo real</h3><p>Votación anónima en vivo (Mentimeter, Slido o similar). Resultado visible en pantalla al instante.</p></div>
+        <div class="vote-step"><div class="v-num">04</div><h3>¡A construir!</h3><p>Reto elegido, equipos listos. Desde ese momento corre el reloj hasta el 15 de abril a las 8:00 am.</p></div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- EQUIPOS -->
+    <section class="section">
+      <div class="section-label">// 03 · articulación de equipos</div>
+      <h2>Cómo se <em>forman</em> los equipos</h2>
+      <div class="team-card">
+        <h3>Composición por equipo (3 personas exactas)</h3>
+        <p style="color:var(--muted);font-size:13px;margin-top:6px;">Cada equipo tiene obligatoriamente un desarrollador (backend, frontend o fullstack) que actúa como ancla técnica. Las otras dos personas se asignan buscando diversidad de área y nivel de conocimiento.</p>
+        <div class="team-composition">
+          <div class="member-chip"><span class="chip-dot c-dev"></span> 1 Dev (ancla técnica)</div>
+          <div class="member-chip"><span class="chip-dot c-init"></span> 1 Iniciando / Junior</div>
+          <div class="member-chip"><span class="chip-dot" style="background:#9ca3af"></span> 1 Perfil cualquier nivel / área</div>
+        </div>
+        <p style="color:var(--muted);font-size:12px;margin-top:14px;">💡 Con ~50 participantes y equipos de 3, se forman aproximadamente <strong style="color:var(--text-dark)">16–17 equipos</strong>. La asignación la hace la organización para garantizar que cada equipo tenga su ancla y diversidad de perfiles.</p>
+      </div>
+      <div class="team-card" style="margin-top:0;">
+        <h3>Rol del Dev ancla/Dev CIS — lo que SÍ hace y lo que NO</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:12px;">
+          <div>
+            <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent3);margin-bottom:10px;">✓ SÍ hace</p>
+            <ul style="list-style:none;color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:6px;">
+              <li>→ Configura el repositorio y entorno inicial</li>
+              <li>→ Explica conceptos y desbloquea al equipo</li>
+              <li>→ Hace code review y sugiere mejoras</li>
+              <li>→ Decide la arquitectura base con el equipo</li>
+              <li>→ Apoya el despliegue final</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#c4009a;margin-bottom:10px;">✗ NO hace</p>
+            <ul style="list-style:none;color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:6px;">
+              <li>→ Escribir el código por otros</li>
+              <li>→ Tomar el teclado sin razón</li>
+              <li>→ Resolver todo con IA sin explicar</li>
+              <li>→ Ignorar al perfil no-técnico</li>
+              <li>→ Convertirse en el único que entendió</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ENTREGABLES -->
+    <section class="section">
+      <div class="section-label">// 04 · entregables</div>
+      <h2>Qué debe <em>entregar</em> cada equipo</h2>
+      <div class="entregables-grid">
+        <div class="e-card"><div class="e-num">01</div><h3>Repositorio Git</h3><p>Código fuente con README claro, instrucciones de ejecución y estructura organizada.</p></div>
+        <div class="e-card"><div class="e-num">02</div><h3>App desplegada</h3><p>URL pública funcionando. Plataformas sugeridas: Render, Railway, Fly.io, Vercel (todas gratuitas).</p></div>
+        <div class="e-card"><div class="e-num">03</div><h3>Tests unitarios</h3><p>Al menos las clases o funciones centrales del dominio deben tener cobertura de tests.</p></div>
+        <div class="e-card"><div class="e-num">04</div><h3>Diseño previo</h3><p>Boceto o wireframe que alimentó el desarrollo. Puede ser en Excalidraw, Figma o incluso papel fotografiado.</p></div>
+        <div class="e-card"><div class="e-num">05</div><h3>Prompts utilizados</h3><p>Documento con los prompts clave usados con IA: qué se pidió, qué se obtuvo, qué se ajustó.</p></div>
+        <div class="e-card"><div class="e-num">06</div><h3>Demo en vivo</h3><p>5 minutos de presentación del equipo mostrando la app funcionando y lo que aprendieron.</p></div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- CRITERIOS -->
+    <section class="section">
+      <div class="section-label">// 05 · criterios de evaluación</div>
+      <h2>Cómo se <em>evalúa</em> y puntúa</h2>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:24px;">Criterios base para todos los equipos + puntos bonus por conceptos avanzados implementados. Los bonus permiten desempatar y reconocer el esfuerzo extra.</p>
+      <table class="criterios-table">
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Descripción</th>
+            <th>Puntos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Funcionalidad</td><td>La app corre, el flujo principal funciona sin errores críticos en demo.</td><td><span class="pts">25 pts</span></td></tr>
+          <tr><td>Despliegue</td><td>URL pública accesible. Contenedor Docker o deploy en nube gratuita.</td><td><span class="pts">15 pts</span></td></tr>
+          <tr><td>Autenticación</td><td>Login/registro funcional con manejo básico de sesión o tokens.</td><td><span class="pts">10 pts</span></td></tr>
+          <tr><td>Diseño previo</td><td>Evidencia de boceto o wireframe que guió el desarrollo.</td><td><span class="pts">10 pts</span></td></tr>
+          <tr><td>Calidad de prompts</td><td>Documento de prompts usados con IA, reflexión sobre lo que funcionó.</td><td><span class="pts">10 pts</span></td></tr>
+          <tr><td>Presentación</td><td>Demo claro, todos participan, explican decisiones técnicas.</td><td><span class="pts">10 pts</span></td></tr>
+          <tr><td>Colaboración visible</td><td>Evidencia de que los no-devs participaron activamente (commits, decisiones, docs).</td><td><span class="pts">10 pts</span></td></tr>
+          <tr><td>Tests unitarios</td><td style="color:var(--accent3)">Bonus: cobertura de al menos 3 funciones/clases del dominio.</td><td><span class="pts pts-bonus">+10 pts</span></td></tr>
+          <tr><td>Tópicos / Colas</td><td style="color:var(--accent3)">Bonus: implementación de mensajería asincrónica real.</td><td><span class="pts pts-bonus">+10 pts</span></td></tr>
+          <tr><td>POO avanzada</td><td style="color:var(--accent3)">Bonus: uso de herencia, interfaces o patrones de diseño justificados.</td><td><span class="pts pts-bonus">+5 pts</span></td></tr>
+          <tr><td>Almacenamiento nube</td><td style="color:var(--accent3)">Bonus: uso de Object Storage (S3/GCS/R2) para archivos o assets.</td><td><span class="pts pts-bonus">+5 pts</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="divider"></div>
+
+    <!-- AGENDA -->
+    <section class="section">
+      <div class="section-label">// 06 · estructura del Ejercicio Práctico</div>
+      <h2>Del <em>8 al 15 de abril</em> — una semana para construir</h2>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:28px;">El Ejercicio Práctico corre desde el martes 8 de abril a las 8:00 am hasta el martes 15 de abril a las 8:00 am. Los equipos trabajan de forma asincrónica durante la semana, con hitos de seguimiento para mantener el ritmo.</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:28px;">Cada equipo decide las dinámicas de trabajo, sin embargo a continuación les recomendamos una que puede ayudarles a organizarse:</p>
+      <div class="agenda">
+        <div class="agenda-item">
+          <div class="a-time">Mar 8<br/>8:00 am</div>
+          <div>
+            <div class="a-title">🚀 Sesión de apertura — en vivo</div>
+            <div class="a-desc">Bienvenida y repaso de reglas. Presentación de los 5 retos. Votación en tiempo real para elegir el reto de la semana. Conformación y presentación de equipos. Kickoff: cada equipo define su stack, levanta el repo y escribe sus primeros prompts.</div>
+            <span class="a-tag">~2 horas · sincrónica</span>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="a-time">Mar 8–<br/>Mié 9</div>
+          <div>
+            <div class="a-title">🔨 Sprint 1 — Base y diseño</div>
+            <div class="a-desc">Foco en: wireframe o boceto validado, estructura de clases (POO), autenticación básica funcionando. El dev ancla/Dev CIS configura el entorno. Cada integrante tiene tareas concretas asignadas.</div>
+            <span class="a-tag">Asincrónico</span>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="a-time">Jue 10<br/>~8:00 am</div>
+          <div>
+            <div class="a-title">📍 Checkpoint intermedio</div>
+            <div class="a-desc">Sesión corta opcional. Cada equipo comparte en 60 segundos su avance y bloqueos. Espacio de ayuda cruzada entre equipos. No es obligatorio mostrar código terminado, sí evidencia de progreso.</div>
+            <span class="a-tag">~45 min · sincrónica</span>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="a-time">Jue 10–<br/>Dom 13</div>
+          <div>
+            <div class="a-title">🔨 Sprint 2 — Integración y features</div>
+            <div class="a-desc">Foco en: funcionalidades del dominio, despliegue en nube, tests unitarios, documento de prompts de IA. El equipo trabaja autónomamente. Se recomienda al menos un commit diario por persona.</div>
+            <span class="a-tag">Asincrónico</span>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="a-time">Lun 14</div>
+          <div>
+            <div class="a-title">🧊 Freeze y preparación de demo</div>
+            <div class="a-desc">Se congela el código a las 11:59 pm del lunes 14. Durante el día se prepara la presentación de 5 minutos: qué construyeron, qué aprendieron, cómo usaron la IA, demo en vivo de la app.</div>
+            <span class="a-tag">Asincrónico · cierre a medianoche</span>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="a-time">Mar 15<br/>8:00 am</div>
+          <div>
+            <div class="a-title">🎤 Demos y cierre — en vivo</div>
+            <div class="a-desc">Cada equipo presenta 5 minutos + 2 min de preguntas del jurado (puede preguntarle a cualquier integrante). Evaluación en tiempo real. Anuncio de ganadores, menciones especiales (mejor prompts, mejor diseño, mejor colaboración). Palabras de cierre.</div>
+            <span class="a-tag">~2–3 horas · sincrónica</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- REGLAS -->
+    <section class="section">
+      <div class="section-label">// 07 · reglas del Ejercicio Práctico</div>
+      <h2>Las <em>reglas</em> del juego</h2>
+      <div class="rules-list">
+        <div class="rule"><div class="rule-n">1</div><div><h3>El repositorio es la evidencia</h3><p>Todo el trabajo debe estar en Git con commits que evidencien la construcción progresiva. Un commit único al final no es válido.</p></div></div>
+        <div class="rule"><div class="rule-n">2</div><div><h3>La IA ayuda, no hace todo</h3><p>El uso de IA es bienvenido y visible. Pero si el equipo no puede explicar lo que la IA generó, no suma puntos. El documento de prompts es obligatorio.</p></div></div>
+        <div class="rule"><div class="rule-n">3</div><div><h3>Libertad de stack y herramientas</h3><p>Cualquier lenguaje, framework, IDE o herramienta gratuita es válida. La única restricción: el despliegue debe ser en una plataforma en nube accesible públicamente.</p></div></div>
+        <div class="rule"><div class="rule-n">4</div><div><h3>Todos deben participar y poder explicar</h3><p>En la demo, el jurado puede preguntar a cualquier miembro del equipo, incluyendo perfiles no técnicos. La participación activa es parte de la evaluación.</p></div></div>
+        <div class="rule"><div class="rule-n">5</div><div><h3>Sin datos reales de la compañía</h3><p>Los proyectos son ejercicios académicos. No se debe usar, referencia ni exponer información confidencial, datos de afiliados ni sistemas internos.</p></div></div>
+        <div class="rule"><div class="rule-n">6</div><div><h3>El dev ancla/Dev CIS no puede escribir más del 40% del código</h3><p>Es una guía, no un ejecutor. Esta restricción se evalúa con la revisión del historial de commits al cierre del Ejercicio Práctico. Se espera actividad de commits de todos los integrantes durante la semana.</p></div></div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">
+        <img src="assets/LogoIndividualCommDlloSW.png" alt="Comunidad Desarrollo de Software"/>
+        <div class="footer-logo-text">
+          Desarrollo de Software
+          <span>Comunidad · Protección S.A.</span>
+        </div>
+      </div>
+      <p>Diseñado para la comunidad de desarrollo · <strong>BuildDay Fintech Edition</strong></p>
+      <p style="margin-top:8px;">Un espacio donde todos construyen, todos aprenden, todos pertenecen.</p>
+    </footer>
+
+  </div>
+</body>
+</html>
